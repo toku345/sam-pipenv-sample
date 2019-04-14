@@ -18,10 +18,10 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.7
       Events:
-        MyTimer:
+        ProverbTimer:
           Type: Schedule
           Properties:
-            Input: cron(15 10 * * ? *)
+            Schedule: cron(15 10 * * ? *)
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -29,7 +29,7 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   ProverbFunction:
     Description: "Proverb Lambda Function ARN"
-    Value: !GetAtt Proverb.Arn
+    Value: !GetAtt ProverbFunction.Arn
   ProverbFunctionIamRole:
     Description: "Implicit IAM Role created for Proverb function"
     Value: !GetAtt ProverbFunctionRole.Arn
