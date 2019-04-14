@@ -17,6 +17,9 @@ Resources:
       CodeUri: package/
       Handler: app.lambda_handler
       Runtime: python3.7
+      Environment:
+        Variables:
+          SLACK_TOKEN: DUMMY_TOKEN
       Events:
         ProverbTimer:
           Type: Schedule
