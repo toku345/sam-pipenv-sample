@@ -1,4 +1,6 @@
 packaged.yaml
+!package/.keep
+package/*
 
 
 # Created by https://www.gitignore.io/api/osx,linux,python,windows,pycharm,visualstudiocode
