@@ -1,0 +1,6 @@
+{
+  "ProverbFunction": {
+    "SLACK_TOKEN": "DUMMY_TOKEN",
+    "SLACK_CHANNEL": "DUMMY_CHANNEL_NAME"
+  }
+}
