@@ -1,6 +1,6 @@
 packaged.yaml
-!package/.keep
 package/*
+!package/.keep
 template.yaml
 
 # Created by https://www.gitignore.io/api/osx,linux,python,windows,pycharm,visualstudiocode
