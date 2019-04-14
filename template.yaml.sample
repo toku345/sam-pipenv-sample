@@ -8,7 +8,7 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 30
 
 Resources:
   ProverbFunction:
@@ -20,11 +20,12 @@ Resources:
       Environment:
         Variables:
           SLACK_TOKEN: DUMMY_TOKEN
+          SLACK_CHANNEL: DUMMY_CHANNEL_NAME
       Events:
         ProverbTimer:
           Type: Schedule
           Properties:
-            Schedule: cron(15 10 * * ? *)
+            Schedule: cron(45 0 * * ? *)
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
