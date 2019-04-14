@@ -9,4 +9,4 @@ def test_lambda_handler():
 
     assert ret["statusCode"] == 200
     assert "message" in ret["body"]
-    assert data["message"] == "hello world"
+    assert data["message"] is not ""
