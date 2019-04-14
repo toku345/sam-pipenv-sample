@@ -83,6 +83,11 @@ make prepare-package
 Next, run the following command to package our Lambda function to S3:
 
 ```bash
+cp template.yaml.sample template.yaml
+
+# Change DUMMY_TOKEN -> your slack token
+$EDITOR template.yaml
+
 sam package \
     --output-template-file packaged.yaml \
     --s3-bucket REPLACE_THIS_WITH_YOUR_S3_BUCKET_NAME
