@@ -5,16 +5,15 @@ This is a sample template for sam-pipenv-sample - Below is a brief explanation o
 ```bash
 .
 ├── README.md                   <-- This instructions file
-├── event.json                  <-- API Gateway Proxy Integration event payload
-├── hello_world                 <-- Source code for a lambda function
+├── Makefile                    <-- Tools to collect / cleanup deploy package
+├── package                     <-- Deploy package
+├── proverb                     <-- Source code for a lambda function
 │   ├── __init__.py
-│   ├── app.py                  <-- Lambda function code
-│   ├── requirements.txt        <-- Lambda function code
+│   └── app.py                  <-- Lambda function code
 ├── template.yaml               <-- SAM Template
 └── tests                       <-- Unit tests
-    └── unit
-        ├── __init__.py
-        └── test_handler.py
+    ├── __init__.py
+    └── test_handler.py
 ```
 
 ## Requirements
@@ -30,7 +29,9 @@ This is a sample template for sam-pipenv-sample - Below is a brief explanation o
 **Invoking function locally using a local sample payload**
 
 ```bash
-sam local invoke HelloWorldFunction --event event.json
+pipenv install --dev
+pipenv shell
+sam local invoke ProverbFunction --event event.json
 ```
 
 **Invoking function locally through local API Gateway**
@@ -72,6 +73,13 @@ Firstly, we need a `S3 bucket` where we can upload our Lambda functions packaged
 aws s3 mb s3://BUCKET_NAME
 ```
 
+Next, collect python codes to ./package directoy:
+
+``` bash
+make prepare-package
+```
+
+
 Next, run the following command to package our Lambda function to S3:
 
 ```bash
@@ -98,7 +106,7 @@ aws cloudformation describe-stacks \
     --stack-name sam-pipenv-sample \
     --query 'Stacks[].Outputs[?OutputKey==`HelloWorldApi`]' \
     --output table
-``` 
+```
 
 ## Fetch, tail, and filter Lambda function logs
 
@@ -118,7 +126,8 @@ You can find more information and examples about filtering Lambda function logs 
 Next, we install test dependencies and we run `pytest` against our `tests` folder to run our initial unit tests:
 
 ```bash
-pip install pytest pytest-mock --user
+pipenv install --dev
+pipenv shell
 python -m pytest tests/ -v
 ```
 
@@ -128,6 +137,7 @@ In order to delete our Serverless Application recently deployed you can use the 
 
 ```bash
 aws cloudformation delete-stack --stack-name sam-pipenv-sample
+make clean-package
 ```
 
 ## Bringing to the next level
@@ -138,7 +148,7 @@ Here are a few things you can try to get more acquainted with building serverles
 
 * Uncomment lines on `app.py`
 * Build the project with ``sam build --use-container``
-* Invoke with ``sam local invoke HelloWorldFunction --event event.json``
+c* Invoke with ``sam local invoke HelloWorldFunction --event event.json``
 * Update tests
 
 ### Create an additional API resource
@@ -207,4 +217,3 @@ aws cloudformation describe-stacks \
 # Tail Lambda function Logs using Logical name defined in SAM Template
 sam logs -n HelloWorldFunction --stack-name sam-pipenv-sample --tail
 ```
-
